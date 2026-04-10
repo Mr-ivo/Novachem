@@ -12,12 +12,14 @@ export async function POST(request) {
     
     console.log('Login attempt with:', { username, passwordProvided: !!password });
     
-    // Hardcoded credentials for development
-    // In production, these should come from environment variables
-    const adminUsername = 'darkadmin';
-    const adminPassword = 'supersecret123';
+    // Credentials loaded from environment variables
+    const adminUsername = process.env.ADMIN_USERNAME;
+    const adminPassword = process.env.ADMIN_PASSWORD;
     
-    console.log('Expected credentials:', { adminUsername, adminPasswordExists: !!adminPassword });
+    if (!adminUsername || !adminPassword) {
+      console.error('ADMIN_USERNAME or ADMIN_PASSWORD not set in environment');
+      return NextResponse.json({ message: 'Server misconfiguration' }, { status: 500 });
+    }
     
     // Validate credentials
     if (username !== adminUsername || password !== adminPassword) {
@@ -40,7 +42,7 @@ export async function POST(request) {
         username: adminUsername,
         isAdmin: true 
       },
-      process.env.JWT_SECRET || 'admin-jwt-secret',
+      process.env.JWT_SECRET || process.env.ADMIN_PASSWORD,
       { expiresIn: '1d' }
     );
     

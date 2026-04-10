@@ -378,7 +378,9 @@ export default function EditProduct({ params }) {
                 }`}
               >
                 <option value="cannabinoids">Cannabinoids</option>
-                <option value="benzos">Benzos</option>
+                <option value="opioids">Opioids</option>
+                <option value="nitazenes">Nitazenes</option>
+                <option value="etomidate">Etomidate</option>
                 <option value="research chemicals">Research Chemicals</option>
               </select>
               {formErrors.category && <p className="text-red-400 text-sm mt-1">{formErrors.category}</p>}

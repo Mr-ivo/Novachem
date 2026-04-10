@@ -18,8 +18,8 @@ export async function generateMetadata({ searchParams }) {
       : 'Research Chemicals | 5cl-adba, jwh-018, adb-butinaca | NovaChem',
     description: category
       ? `Browse premium ${category.toLowerCase()}: 5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca and more.`
-      : 'Browse premium research chemicals: 5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca, ab-pinaca, 5F-EDMB-PINACA, ADB-FUBINACA, 4FADB, AMB-FUBINACA, MDMB-4en-PINACA. High-quality synthetic cannabinoids and benzos for laboratory research.',
-    keywords: '5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca, ab-pinaca, 5F-EDMB-PINACA, ADB-FUBINACA, 4FADB, AMB-FUBINACA, MDMB-4en-PINACA, buy research chemicals, synthetic cannabinoids, benzos',
+      : 'Browse premium research chemicals: 5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca, ab-pinaca, 5F-EDMB-PINACA, ADB-FUBINACA, 4FADB, AMB-FUBINACA, MDMB-4en-PINACA. High-quality synthetic cannabinoids, opioids, nitazenes and etomidate for laboratory research.',
+    keywords: '5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca, ab-pinaca, 5F-EDMB-PINACA, ADB-FUBINACA, 4FADB, AMB-FUBINACA, MDMB-4en-PINACA, buy research chemicals, synthetic cannabinoids, opioids, nitazenes, etomidate',
     alternates: {
       canonical: '/products', // Always point to /products to avoid duplicate content from query params
     },
@@ -142,9 +142,17 @@ const categoryMeta = {
     label: 'Cannabinoids',
     desc: 'High-purity synthetic cannabinoids including 5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca and more. Lab-verified for research use.',
   },
-  benzos: {
-    label: 'Benzodiazepines',
-    desc: 'Premium-grade benzodiazepine compounds — Etizolam, Flualprazolam, Clonazolam, Diclazepam and more for laboratory analysis.',
+  opioids: {
+    label: 'Opioids',
+    desc: 'Premium-grade opioid research compounds for laboratory analysis and scientific research.',
+  },
+  nitazenes: {
+    label: 'Nitazenes',
+    desc: 'High-purity nitazene compounds for analytical chemistry and scientific research.',
+  },
+  etomidate: {
+    label: 'Etomidate',
+    desc: 'Laboratory-grade etomidate compounds for research and analytical purposes.',
   },
   'research chemicals': {
     label: 'Research Chemicals',
@@ -161,7 +169,7 @@ export default async function ProductsPage({ searchParams }) {
   const catInfo = categoryMeta[catKey] || null;
   const displayLabel = catInfo?.label || selectedCategory || 'All Products';
   const displayDesc = catInfo?.desc ||
-    'Browse our full catalog of high-purity research chemicals, cannabinoids, and benzodiazepines — each compound verified for lab-grade quality.';
+    'Browse our full catalog of high-purity research chemicals, cannabinoids, opioids, nitazenes and etomidate — each compound verified for lab-grade quality.';
 
   return (
     <div className="min-h-screen bg-gray-950">
@@ -195,7 +203,9 @@ export default async function ProductsPage({ searchParams }) {
             {[
               { href: '/products', label: 'All' },
               { href: '/products?category=cannabinoids', label: 'Cannabinoids' },
-              { href: '/products?category=benzos', label: 'Benzos' },
+              { href: '/products?category=opioids', label: 'Opioids' },
+              { href: '/products?category=nitazenes', label: 'Nitazenes' },
+              { href: '/products?category=etomidate', label: 'Etomidate' },
               { href: '/products?category=research%20chemicals', label: 'Research Chemicals' },
             ].map(({ href, label }) => {
               const active = label === 'All' ? !selectedCategory : catKey === label.toLowerCase();

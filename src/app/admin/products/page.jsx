@@ -176,7 +176,13 @@ export default function AdminProducts() {
                         </td>
                         <td className="px-5 py-3 font-medium text-white">{product.name}</td>
                         <td className="px-5 py-3 text-gray-400 capitalize">{product.category}</td>
-                        <td className="px-5 py-3 text-white">€{product.price.toFixed(2)}</td>
+                        <td className="px-5 py-3 text-white">
+                          {product.priceVariants?.length > 0
+                            ? `€${product.priceVariants[0].price.toFixed(2)}${product.priceVariants.length > 1 ? '+' : ''}`
+                            : product.price != null
+                              ? `€${product.price.toFixed(2)}`
+                              : '—'}
+                        </td>
                         <td className="px-5 py-3">
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                             product.countInStock > 10 ? 'bg-green-500/20 text-green-400' :

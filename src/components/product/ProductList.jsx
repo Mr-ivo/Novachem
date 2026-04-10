@@ -341,8 +341,10 @@ export default function ProductList({ initialProducts, selectedCategory }) {
                   >
                     <option value="">All Categories</option>
                     <option value="cannabinoids">Cannabinoids</option>
+                    <option value="opioids">Opioids</option>
+                    <option value="nitazenes">Nitazenes</option>
+                    <option value="etomidate">Etomidate</option>
                     <option value="research chemicals">Research Chemicals</option>
-                    <option value="benzos">Benzos</option>
                   </select>
                 </div>
 

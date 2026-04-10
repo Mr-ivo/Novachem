@@ -2,173 +2,140 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useStripe, useElements, PaymentElement, AddressElement } from '@stripe/react-stripe-js';
-import { FaLock, FaSpinner } from 'react-icons/fa';
+import { FaLock, FaSpinner, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { useCart } from '@/components/cart/CartProvider';
 
 export default function CheckoutForm({ orderDetails }) {
-  const stripe = useStripe();
-  const elements = useElements();
   const router = useRouter();
   const { cart } = useCart();
-  
+
   const [errorMessage, setErrorMessage] = useState('');
   const [processing, setProcessing] = useState(false);
   const [billingDetails, setBillingDetails] = useState({
     name: '',
     email: '',
     phone: '',
-    address: {}
+    address: '',
+    city: '',
+    postalCode: '',
+    country: '',
   });
+
+  const handleChange = (e) => {
+    setBillingDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!stripe || !elements) {
-      // Stripe.js hasn't loaded yet
-      return;
-    }
-    
     setProcessing(true);
     setErrorMessage('');
-    
+
     try {
-      // Create the order in your database first
-      console.log('Submitting order with cart items:', cart);
       const orderRes = await fetch('/api/orders', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          billingDetails,
+          billingDetails: {
+            name: billingDetails.name,
+            email: billingDetails.email,
+            phone: billingDetails.phone,
+            address: {
+              line1: billingDetails.address,
+              city: billingDetails.city,
+              postal_code: billingDetails.postalCode,
+              country: billingDetails.country,
+            },
+          },
           orderTotal: orderDetails.total,
-          cartItems: cart // Include cart items in the request
+          cartItems: cart,
         }),
       });
-      
+
       const orderData = await orderRes.json();
-      
-      if (!orderRes.ok) {
-        throw new Error(orderData.message || 'Failed to create order');
-      }
-      
-      // Confirm the payment with Stripe
-      const { error, paymentIntent } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: `${window.location.origin}/checkout/success?order_id=${orderData._id}`,
-        },
-        redirect: 'if_required',
-      });
-      
-      if (error) {
-        throw new Error(error.message || 'Payment failed');
-      }
-      
-      if (paymentIntent && paymentIntent.status === 'succeeded') {
-        // Payment successful without redirect
-        // Update the order status
-        await fetch(`/api/orders/${orderData._id}/update-status`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            status: 'processing',
-            paymentIntentId: paymentIntent.id
-          }),
-        });
-        
-        // Clear the cart
-        await fetch('/api/cart/clear', {
-          method: 'POST',
-        });
-        
-        // Redirect to success page
-        router.push(`/checkout/success?order_id=${orderData._id}`);
-      }
+      if (!orderRes.ok) throw new Error(orderData.message || 'Failed to create order');
+
+      await fetch('/api/cart/clear', { method: 'POST' });
+      router.push(`/checkout/success?order_id=${orderData._id}`);
     } catch (error) {
-      console.error('Payment error:', error);
-      setErrorMessage(error.message || 'An error occurred during payment processing');
+      console.error('Order error:', error);
+      setErrorMessage(error.message || 'An error occurred. Please try again.');
     } finally {
       setProcessing(false);
     }
   };
 
-  const handleAddressChange = (event) => {
-    setBillingDetails({
-      ...billingDetails,
-      address: event.value.address,
-      name: event.value.name
-    });
-  };
+  const inputClass = 'bg-gray-800/60 border border-gray-700 text-white rounded-xl py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-gray-600 text-sm';
+  const labelClass = 'block text-xs font-medium text-gray-400 mb-1.5';
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="space-y-5">
       {errorMessage && (
-        <div className="bg-red-500/20 border border-red-500 text-red-400 px-4 py-3 rounded-lg mb-6">
+        <div className="bg-red-500/20 border border-red-500/40 text-red-400 px-4 py-3 rounded-xl text-sm">
           {errorMessage}
         </div>
       )}
 
-      <div className="mb-6">
-        <h3 className="text-white text-lg font-medium mb-4">Billing Information</h3>
-        <AddressElement 
-          options={{
-            mode: 'billing',
-            allowedCountries: ['US', 'CA', 'GB', 'AU'],
-            fields: {
-              phone: 'always',
-            },
-            validation: {
-              phone: {
-                required: 'always',
-              },
-            },
-          }}
-          onChange={handleAddressChange}
-          className="mb-4"
-        />
+      <h3 className="text-white font-semibold text-sm">Billing Information</h3>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className={labelClass}>Full Name</label>
+          <input name="name" type="text" required value={billingDetails.name} onChange={handleChange}
+            placeholder="John Doe" className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>Email Address</label>
+          <input name="email" type="email" required value={billingDetails.email} onChange={handleChange}
+            placeholder="john@example.com" className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>Phone Number</label>
+          <input name="phone" type="tel" value={billingDetails.phone} onChange={handleChange}
+            placeholder="+1 234 567 8900" className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>Country</label>
+          <input name="country" type="text" required value={billingDetails.country} onChange={handleChange}
+            placeholder="United States" className={inputClass} />
+        </div>
+        <div className="sm:col-span-2">
+          <label className={labelClass}>Street Address</label>
+          <input name="address" type="text" required value={billingDetails.address} onChange={handleChange}
+            placeholder="123 Main Street" className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>City</label>
+          <input name="city" type="text" required value={billingDetails.city} onChange={handleChange}
+            placeholder="New York" className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>Postal Code</label>
+          <input name="postalCode" type="text" required value={billingDetails.postalCode} onChange={handleChange}
+            placeholder="10001" className={inputClass} />
+        </div>
       </div>
-      
-      <div className="mb-6">
-        <h3 className="text-white text-lg font-medium mb-4">Payment Method</h3>
-        <PaymentElement 
-          options={{
-            layout: 'tabs',
-            defaultValues: {
-              billingDetails: {
-                name: billingDetails.name,
-              },
-            },
-          }}
-        />
-      </div>
-      
-      <div className="mt-8">
-        <button
-          type="submit"
-          disabled={!stripe || processing}
-          className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold py-3 px-6 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-teal-900/30 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed disabled:translate-y-0"
-        >
-          {processing ? (
-            <>
-              <FaSpinner className="animate-spin mr-2" />
-              Processing...
-            </>
-          ) : (
-            <>
-              <FaLock className="mr-2" />
-              Pay ${orderDetails.total.toFixed(2)}
-            </>
-          )}
-        </button>
-        
-        <p className="text-gray-400 text-sm mt-4 text-center">
-          Your payment information is encrypted and secure. We never store your full credit card details.
-        </p>
-      </div>
+
+      <button
+        type="submit"
+        disabled={processing}
+        className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold py-3 px-6 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-teal-900/30 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed disabled:translate-y-0 mt-2"
+      >
+        {processing ? (
+          <>
+            <FaSpinner className="animate-spin mr-2" />
+            Placing Order...
+          </>
+        ) : (
+          <>
+            <FaLock className="mr-2 text-xs" />
+            Place Order — €{orderDetails.total.toFixed(2)}
+          </>
+        )}
+      </button>
+
+      <p className="text-gray-600 text-xs text-center">
+        By placing your order you agree to be contacted with payment instructions via email.
+      </p>
     </form>
   );
 }

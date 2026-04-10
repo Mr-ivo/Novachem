@@ -10,7 +10,9 @@ const footerLinks = {
   Shop: [
     { href: '/products', label: 'All Products' },
     { href: '/products?category=cannabinoids', label: 'Cannabinoids' },
-    { href: '/products?category=benzos', label: 'Benzos' },
+    { href: '/products?category=opioids', label: 'Opioids' },
+    { href: '/products?category=nitazenes', label: 'Nitazenes' },
+    { href: '/products?category=etomidate', label: 'Etomidate' },
     { href: '/products?category=research%20chemicals', label: 'Research Chemicals' },
   ],
   Company: [

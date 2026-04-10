@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Dark background -->
+  <rect width="32" height="32" rx="8" fill="#0f172a"/>
+  <!-- Teal border ring -->
+  <rect x="2" y="2" width="28" height="28" rx="6" fill="none" stroke="rgba(20,184,166,0.5)" stroke-width="1.5"/>
+  <!-- N letter -->
+  <text x="16" y="22" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="18" fill="#2dd4bf" text-anchor="middle" letter-spacing="-1">N</text>
+  <!-- Dot accent -->
+  <circle cx="26" cy="25" r="2.5" fill="#14b8a6"/>
+</svg>

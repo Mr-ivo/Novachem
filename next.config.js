@@ -30,6 +30,16 @@ const nextConfig = {
   },
   // Add transpilePackages for Three.js and related packages
   transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
+  // Serve SVG favicon for icon routes (bypasses @vercel/og Windows path bug)
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: '/favicon.ico', destination: '/favicon.svg' },
+        { source: '/icon', destination: '/favicon.svg' },
+        { source: '/apple-icon', destination: '/favicon.svg' },
+      ],
+    };
+  },
   // Headers for better caching and security
   async headers() {
     return [

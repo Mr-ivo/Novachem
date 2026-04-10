@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import { FaFlask, FaCannabis, FaPills, FaShoppingCart, FaStar, FaShieldAlt, FaTruck, FaCheckCircle, FaQuoteLeft } from 'react-icons/fa';
+import { FaFlask, FaCannabis, FaPills, FaSyringe, FaVial, FaShoppingCart, FaStar, FaShieldAlt, FaTruck, FaCheckCircle, FaQuoteLeft } from 'react-icons/fa';
 import { HiOutlineArrowRight as HiArrowRight } from 'react-icons/hi';
 import { motion, useInView } from 'framer-motion';
 import { useCart } from '@/components/cart/CartProvider';
@@ -12,14 +12,14 @@ import HeroCarousel from '@/components/home/HeroCarousel';
 
 export default function HomeClient({ featuredProducts = [] }) {
   return (
-    <main className="min-h-screen bg-gray-950">
+    <div className="min-h-screen bg-gray-950">
       <SEOKeywords />
       <HeroCarousel />
       <CategoriesSection />
       <FeaturedProductsSection products={featuredProducts} />
       <TestimonialsSection />
       <CallToAction />
-    </main>
+    </div>
   );
 }
 
@@ -62,11 +62,29 @@ function CategoriesSection() {
       featured: true,
     },
     {
-      href: '/products?category=benzos',
+      href: '/products?category=opioids',
       icon: FaPills,
-      title: 'Benzos',
-      desc: 'Benzodiazepine compounds for laboratory analysis.',
-      count: '30+ Products',
+      title: 'Opioids',
+      desc: 'Opioid research compounds for laboratory analysis.',
+      count: '20+ Products',
+      span: '',
+      featured: false,
+    },
+    {
+      href: '/products?category=nitazenes',
+      icon: FaSyringe,
+      title: 'Nitazenes',
+      desc: 'High-purity nitazene compounds for scientific research.',
+      count: '20+ Products',
+      span: '',
+      featured: false,
+    },
+    {
+      href: '/products?category=etomidate',
+      icon: FaVial,
+      title: 'Etomidate',
+      desc: 'Laboratory-grade etomidate compounds.',
+      count: '10+ Products',
       span: '',
       featured: false,
     },
@@ -310,7 +328,7 @@ const testimonials = [
   { text: "We rely on NovaChem for all research chemical needs. Their quality control is impressive.", author: "M. Williams", role: "Chemical Analyst" },
   { text: "Their compounds significantly accelerated our development process. Consistently high quality.", author: "Dr. A. Rodriguez", role: "Pharmaceutical Researcher" },
   { text: "Exceptional results every order. NovaChem is our trusted supplier for all laboratory needs.", author: "K. Chen", role: "Lab Manager" },
-  { text: "The benzos line is top-tier. Certificate of analysis always provided — very professional.", author: "T. Okafor", role: "Independent Researcher" },
+  { text: "The opioid research compounds are top-tier. Certificate of analysis always provided — very professional.", author: "T. Okafor", role: "Independent Researcher" },
 ];
 
 function TestimonialCard({ text, author, role }) {

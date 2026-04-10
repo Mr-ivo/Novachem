@@ -1,34 +1,61 @@
+import Script from 'next/script';
 import dbConnect from '@/lib/utils/db';
 import Product from '@/models/Product';
 import HomeClient from '@/components/home/HomeClient';
+import { getOrganizationSchema, getWebsiteSchema } from '@/components/seo/SEOKeywords';
 
-// Metadata for SEO
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com';
+
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com'),
-  title: 'NovaChem | Premium Research Chemicals - 5cl-adba, jwh-018, adb-butinaca',
-  description: 'Premium quality research chemicals including 5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca, ab-pinaca, 5F-EDMB-PINACA, ADB-FUBINACA, 4FADB, AMB-FUBINACA, MDMB-4en-PINACA. Top-grade synthetic cannabinoids and benzos for laboratory research.',
-  keywords: '5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca, ab-pinaca, 5F-EDMB-PINACA, ADB-FUBINACA, 4FADB, AMB-FUBINACA, MDMB-4en-PINACA, research chemicals, synthetic cannabinoids, benzos',
+  metadataBase: new URL(BASE_URL),
+  title: 'NovaChem | Buy Research Chemicals Online — Premium Quality',
+  description: 'Buy premium research chemicals online. NovaChem supplies synthetic cannabinoids (5cl-adba, jwh-018, adb-butinaca), opioids, nitazenes, etomidate and laboratory-grade compounds. Fast discreet shipping worldwide.',
+  keywords: [
+    'buy research chemicals online',
+    'research chemicals',
+    'synthetic cannabinoids',
+    '5cl-adba', '5cladba', '5fadb', 'jwh-018',
+    'adb-butinaca', 'ab-pinaca', '5F-EDMB-PINACA',
+    'ADB-FUBINACA', '4FADB', 'AMB-FUBINACA', 'MDMB-4en-PINACA',
+    'opioids', 'nitazenes', 'etomidate',
+    'laboratory chemicals',
+    'premium research chemicals', 'NovaChem',
+  ],
   alternates: {
-    canonical: '/',
+    canonical: BASE_URL,
   },
   openGraph: {
-    title: 'NovaChem | Premium Research Chemicals',
-    description: 'Premium quality research chemicals including 5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca and more.',
-    url: '/',
     type: 'website',
+    locale: 'en_US',
+    url: BASE_URL,
+    siteName: 'NovaChem',
+    title: 'NovaChem | Buy Research Chemicals Online — Premium Quality',
+    description: 'Premium synthetic cannabinoids, opioids, nitazenes, etomidate and laboratory compounds. Worldwide discreet shipping. Shop NovaChem today.',
+    images: [
+      {
+        url: `${BASE_URL}/images/logo.png`,
+        width: 1200,
+        height: 630,
+        alt: 'NovaChem — Premium Research Chemicals',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NovaChem | Buy Research Chemicals Online',
+    description: 'Premium synthetic cannabinoids, opioids, nitazenes, etomidate and laboratory compounds. Worldwide discreet shipping.',
+    images: [`${BASE_URL}/images/logo.png`],
   },
 };
 
 async function getFeaturedProducts() {
   await dbConnect();
-  
   try {
     const products = await Product.find({ featured: true })
       .limit(6)
       .select('-reviews')
       .lean();
-    
-    return JSON.parse(JSON.stringify(products)); 
+    return JSON.parse(JSON.stringify(products));
   } catch (error) {
     console.error('Error fetching featured products:', error);
     return [];
@@ -37,6 +64,22 @@ async function getFeaturedProducts() {
 
 export default async function HomePage() {
   const featuredProducts = await getFeaturedProducts();
-  
-  return <HomeClient featuredProducts={featuredProducts} />;
+  const organizationSchema = getOrganizationSchema();
+  const websiteSchema = getWebsiteSchema();
+
+  return (
+    <>
+      <Script
+        id="schema-organization"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <Script
+        id="schema-website"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <HomeClient featuredProducts={featuredProducts} />
+    </>
+  );
 }

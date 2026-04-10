@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowRight, FaFlask, FaCannabis, FaPills, FaShieldAlt, FaTruck, FaStar } from 'react-icons/fa';
 import { HiChevronDown } from 'react-icons/hi';
 
-const highlights = ['Cannabinoids', 'Benzodiazepines', 'Research Chemicals', 'Nitazenes'];
+const highlights = ['Cannabinoids', 'Opioids', 'Nitazenes', 'Etomidate', 'Research Chemicals'];
 
 const floatingCards = [
   { icon: FaCannabis, label: 'Cannabinoids', count: '50+ products', color: 'from-teal-900/80 to-teal-800/60', border: 'border-teal-700/40' },
-  { icon: FaPills, label: 'Benzos', count: '30+ compounds', color: 'from-cyan-900/80 to-cyan-800/60', border: 'border-cyan-700/40' },
+  { icon: FaPills, label: 'Opioids', count: '20+ compounds', color: 'from-cyan-900/80 to-cyan-800/60', border: 'border-cyan-700/40' },
   { icon: FaFlask, label: 'Research Chemicals', count: '100+ items', color: 'from-emerald-900/80 to-emerald-800/60', border: 'border-emerald-700/40' },
 ];
 

@@ -42,9 +42,7 @@ export default function AdminLoginPage() {
       }
       
       console.log('Login successful');
-      setTimeout(() => {
-        router.push('/admin');
-      }, 500);
+      router.push('/admin');
     } catch (err) {
       console.error('Login error:', err);
       setError(err.message || 'Login failed. Please try again.');

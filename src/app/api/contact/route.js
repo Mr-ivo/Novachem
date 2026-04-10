@@ -29,8 +29,8 @@ export async function POST(request) {
 
     // Send email using Postmark
     const emailResult = await postmarkClient.sendEmail({
-      From: 'info@darkchemsite.com',
-      To: 'info@darkchemsite.com',
+      From: 'info@novachem.com',
+      To: 'info@novachem.com',
       ReplyTo: email, // Add Reply-To header with the sender's email
       Subject: `🔔 New Contact Form: ${subject}`,
       TextBody: `
@@ -71,7 +71,7 @@ Reply directly to this email to respond to ${name}.
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #0f172a 0%, #134e4a 100%);
       color: #ffffff;
       padding: 30px 20px;
       text-align: center;
@@ -91,7 +91,7 @@ Reply directly to this email to respond to ${name}.
     }
     .info-box {
       background-color: #f8f9fa;
-      border-left: 4px solid #667eea;
+      border-left: 4px solid #0d9488;
       padding: 15px 20px;
       margin-bottom: 20px;
       border-radius: 5px;
@@ -137,7 +137,7 @@ Reply directly to this email to respond to ${name}.
     }
     .action-button {
       display: inline-block;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #0d9488 0%, #134e4a 100%);
       color: #ffffff;
       text-decoration: none;
       padding: 12px 30px;
@@ -183,7 +183,7 @@ Reply directly to this email to respond to ${name}.
     <!-- Header -->
     <div class="header">
       <h1>🔔 New Contact Form Submission</h1>
-      <p>DarkChemSite Contact Form</p>
+      <p>NovaChem Contact Form</p>
     </div>
 
     <!-- Content -->
@@ -225,11 +225,11 @@ Reply directly to this email to respond to ${name}.
 
     <!-- Footer -->
     <div class="footer">
-      <p><strong>DarkChemSite</strong> - Premium Research Chemicals</p>
+      <p><strong>NovaChem</strong> - Premium Research Chemicals</p>
       <p>This email was sent from your website contact form</p>
       <p style="margin-top: 10px;">
-        <a href="https://darkchemsite.com" style="color: #667eea; text-decoration: none;">Visit Website</a> |
-        <a href="https://darkchemsite.com/admin" style="color: #667eea; text-decoration: none;">Admin Dashboard</a>
+        <a href="https://novachem.com" style="color: #0d9488; text-decoration: none;">Visit Website</a> |
+        <a href="https://novachem.com/admin" style="color: #0d9488; text-decoration: none;">Admin Dashboard</a>
       </p>
     </div>
   </div>
@@ -249,19 +249,19 @@ Reply directly to this email to respond to ${name}.
     
     // Check if user email is same domain (Postmark sandbox restriction)
     const userDomain = email.split('@')[1];
-    const canSendConfirmation = userDomain === 'darkchemsite.com';
+    const canSendConfirmation = true;
     
     // Try to send confirmation email to the user (only if same domain or Postmark is approved)
     if (canSendConfirmation) {
       try {
         confirmationResult = await postmarkClient.sendEmail({
-            From: 'info@darkchemsite.com',
+            From: 'info@novachem.com',
             To: email,
-            Subject: '✅ We received your message - DarkChemSite',
+            Subject: '✅ We received your message - NovaChem',
           TextBody: `
 Dear ${name},
 
-Thank you for contacting DarkChemSite!
+Thank you for contacting NovaChem!
 
 We have successfully received your message and our team will review it shortly. You can expect a response within 24-48 hours.
 
@@ -270,14 +270,14 @@ Subject: ${subject}
 Message: ${message}
 Sent: ${timestamp}
 
-If you have any urgent questions, please don't hesitate to reach out to us directly at info@darkchemsite.com.
+If you have any urgent questions, please don't hesitate to reach out to us directly at info@novachem.com.
 
 Best regards,
-The DarkChemSite Team
+The NovaChem Team
 
 ---
-DarkChemSite - Premium Research Chemicals
-Website: https://darkchemsite.com
+NovaChem - Premium Research Chemicals
+Website: https://novachem.com
           `,
           HtmlBody: `
 <!DOCTYPE html>
@@ -301,7 +301,7 @@ Website: https://darkchemsite.com
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #0f172a 0%, #134e4a 100%);
       color: #ffffff;
       padding: 40px 20px;
       text-align: center;
@@ -385,7 +385,7 @@ Website: https://darkchemsite.com
     .footer-logo {
       font-size: 20px;
       font-weight: 700;
-      color: #667eea;
+      color: #0d9488;
       margin-bottom: 10px;
     }
     .footer p {
@@ -397,7 +397,7 @@ Website: https://darkchemsite.com
       margin-top: 15px;
     }
     .footer-links a {
-      color: #667eea;
+      color: #0d9488;
       text-decoration: none;
       margin: 0 10px;
       font-size: 13px;
@@ -428,7 +428,7 @@ Website: https://darkchemsite.com
       <p class="greeting">Dear <strong>${name}</strong>,</p>
       
       <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
-        Thank you for reaching out to <strong>DarkChemSite</strong>! We have successfully received your message and our team is reviewing it.
+        Thank you for reaching out to <strong>NovaChem</strong>! We have successfully received your message and our team is reviewing it.
       </p>
 
       <!-- Response Time -->
@@ -455,7 +455,7 @@ Website: https://darkchemsite.com
       <div class="info-box">
         <p>
           <strong>💡 Need urgent assistance?</strong><br>
-          Contact us directly at <a href="mailto:info@darkchemsite.com" style="color: #0066cc;">info@darkchemsite.com</a>
+          Contact us directly at <a href="mailto:info@novachem.com" style="color: #0d9488;">info@novachem.com</a>
         </p>
       </div>
 
@@ -465,24 +465,24 @@ Website: https://darkchemsite.com
 
       <p style="color: #555; margin-top: 20px;">
         Best regards,<br>
-        <strong>The DarkChemSite Team</strong>
+        <strong>The NovaChem Team</strong>
       </p>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-      <div class="footer-logo">DarkChemSite</div>
+      <div class="footer-logo" style="color: #0d9488;">NovaChem</div>
       <p><strong>Premium Research Chemicals</strong></p>
       <p style="margin-top: 10px;">This is an automated confirmation email.</p>
       
       <div class="footer-links">
-        <a href="https://darkchemsite.com">Visit Website</a> |
-        <a href="https://darkchemsite.com/products">Browse Products</a> |
-        <a href="https://darkchemsite.com/about">About Us</a>
+        <a href="https://novachem.com">Visit Website</a> |
+        <a href="https://novachem.com/products">Browse Products</a> |
+        <a href="https://novachem.com/about">About Us</a>
       </div>
 
       <p style="margin-top: 15px; font-size: 11px; color: #999;">
-        © ${new Date().getFullYear()} DarkChemSite. All rights reserved.
+        © ${new Date().getFullYear()} NovaChem. All rights reserved.
       </p>
     </div>
   </div>

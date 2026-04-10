@@ -139,7 +139,7 @@ export default function AboutPage() {
               </div>
               <h2 className="text-2xl font-bold text-white mb-4">Who We Are</h2>
               <p className="text-gray-400 leading-relaxed">
-                We are a team of chemistry professionals and logistics specialists committed to serving the global research community. Our catalog spans synthetic cannabinoids, benzodiazepine analogues, and novel research compounds — all held to strict analytical standards before being offered for sale.
+                We are a team of chemistry professionals and logistics specialists committed to serving the global research community. Our catalog spans synthetic cannabinoids, opioids, nitazenes, etomidate and novel research compounds — all held to strict analytical standards before being offered for sale.
               </p>
             </div>
           </FadeUp>

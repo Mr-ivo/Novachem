@@ -17,8 +17,6 @@
     "@heroicons/react": "^2.1.1",
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
-    "@stripe/react-stripe-js": "^3.7.0",
-    "@stripe/stripe-js": "^7.3.0",
     "axios": "^1.6.7",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.6.1",
@@ -44,7 +42,6 @@
     "slick-carousel": "^1.8.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
-    "stripe": "^14.15.0",
     "three": "^0.176.0",
     "tsparticles": "^3.8.1",
     "tsparticles-slim": "^2.12.0"

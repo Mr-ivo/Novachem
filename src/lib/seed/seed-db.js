@@ -18,14 +18,14 @@ async function seedDatabase() {
     console.log('Cleared existing products');
     
     // Create admin user if it doesn't exist
-    const adminExists = await User.findOne({ email: 'admin@darkchemsite.com' });
+    const adminExists = await User.findOne({ email: 'admin@novachem.com' });
     if (!adminExists) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash('admin123', salt);
       
       await User.create({
         name: 'Admin User',
-        email: 'admin@darkchemsite.com',
+        email: 'admin@novachem.com',
         password: hashedPassword,
         isAdmin: true,
       });
@@ -134,15 +134,13 @@ async function seedDatabase() {
         featured: false,
       },
       
-      // Stimulants category has been removed as requested by the owners
-      
-      // Benzos
+      // Opioids
       {
-        name: 'Etizolam',
-        slug: 'etizolam',
-        category: 'Benzos',
-        images: ['/images/products/etizolam.jpg'],
-        description: 'Etizolam research compound, 99.8% purity. For laboratory research only.\n\nThis thienodiazepine compound is provided for analytical chemistry and scientific research.',
+        name: 'Opioid Research Compound A',
+        slug: 'opioid-research-compound-a',
+        category: 'opioids',
+        images: [],
+        description: 'High-purity opioid research compound for laboratory analysis. 99%+ purity. For scientific research only.',
         priceVariants: [
           { quantity: 1, price: 49.99 },
           { quantity: 5, price: 219.99 },
@@ -150,40 +148,44 @@ async function seedDatabase() {
         ],
         countInStock: 25,
         rating: 4.7,
-        numReviews: 19,
+        numReviews: 0,
         featured: true,
       },
+
+      // Nitazenes
       {
-        name: 'Flualprazolam',
-        slug: 'flualprazolam',
-        category: 'Benzos',
-        images: ['/images/products/flualprazolam.jpg'],
-        description: 'Flualprazolam research compound, 99.5% purity. For analytical purposes only.\n\nThis triazole benzodiazepine compound is provided for laboratory research and analysis.',
+        name: 'Nitazene Research Compound A',
+        slug: 'nitazene-research-compound-a',
+        category: 'nitazenes',
+        images: [],
+        description: 'High-purity nitazene research compound for analytical chemistry and scientific research. 99%+ purity.',
         priceVariants: [
           { quantity: 1, price: 69.99 },
           { quantity: 5, price: 299.99 },
           { quantity: 10, price: 549.99 },
         ],
-        countInStock: 15,
+        countInStock: 20,
         rating: 4.6,
-        numReviews: 14,
-        featured: false,
+        numReviews: 0,
+        featured: true,
       },
+
+      // Etomidate
       {
-        name: 'Clonazolam',
-        slug: 'clonazolam',
-        category: 'Benzos',
-        images: ['/images/products/clonazolam.jpg'],
-        description: 'Clonazolam research compound, 99.7% purity. For laboratory use only.\n\nThis triazole benzodiazepine compound is provided for analytical chemistry and scientific research.',
+        name: 'Etomidate Research Grade',
+        slug: 'etomidate-research-grade',
+        category: 'etomidate',
+        images: [],
+        description: 'Laboratory-grade etomidate compound for research and analytical purposes. 99%+ purity.',
         priceVariants: [
           { quantity: 1, price: 74.99 },
           { quantity: 5, price: 329.99 },
           { quantity: 10, price: 599.99 },
         ],
-        countInStock: 10,
+        countInStock: 15,
         rating: 4.8,
-        numReviews: 16,
-        featured: false,
+        numReviews: 0,
+        featured: true,
       },
     ];
 

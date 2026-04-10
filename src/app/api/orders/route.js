@@ -218,7 +218,7 @@ export async function POST(request) {
       user: user._id,
       orderItems,
       shippingAddress,
-      paymentMethod: 'Stripe',
+      paymentMethod: 'Bank Transfer',
       itemsPrice,
       shippingPrice,
       taxPrice,

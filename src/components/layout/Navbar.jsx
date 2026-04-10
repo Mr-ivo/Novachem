@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { useCart } from '@/components/cart/CartProvider';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaShoppingCart, FaUser, FaSearch, FaFlask, FaCannabis, FaPills, FaTimes } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaSearch, FaFlask, FaCannabis, FaPills, FaSyringe, FaVial, FaTimes } from 'react-icons/fa';
 import { HiMenuAlt3 } from 'react-icons/hi';
 
 const navLinks = [
@@ -17,7 +17,9 @@ const navLinks = [
 
 const shopCategories = [
   { href: '/products?category=cannabinoids', label: 'Cannabinoids', icon: FaCannabis, desc: 'Synthetic & natural compounds' },
-  { href: '/products?category=benzos', label: 'Benzos', icon: FaPills, desc: 'Benzodiazepine research' },
+  { href: '/products?category=opioids', label: 'Opioids', icon: FaPills, desc: 'Opioid research compounds' },
+  { href: '/products?category=nitazenes', label: 'Nitazenes', icon: FaSyringe, desc: 'Nitazene research compounds' },
+  { href: '/products?category=etomidate', label: 'Etomidate', icon: FaVial, desc: 'Etomidate compounds' },
   { href: '/products?category=research%20chemicals', label: 'Research Chemicals', icon: FaFlask, desc: 'Specialized compounds' },
 ];
 

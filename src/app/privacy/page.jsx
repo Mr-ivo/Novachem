@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc list-inside space-y-2 mb-4 ml-4">
               <li><strong>Account Information:</strong> Name, email address, username, and password</li>
               <li><strong>Contact Information:</strong> Phone number, billing address, and shipping address</li>
-              <li><strong>Payment Information:</strong> Credit card details, billing information (processed securely through Stripe)</li>
+              <li><strong>Payment Information:</strong> Billing details used to process your order via bank transfer or cryptocurrency</li>
               <li><strong>Order Information:</strong> Purchase history, order details, and preferences</li>
               <li><strong>Communication Data:</strong> Messages sent through our contact form or customer support</li>
             </ul>
@@ -79,7 +79,7 @@ export default function PrivacyPolicyPage() {
             
             <h3 className="text-xl font-semibold text-teal-400 mb-3">4.1 Service Providers</h3>
             <ul className="list-disc list-inside space-y-2 mb-4 ml-4">
-              <li><strong>Payment Processors:</strong> Stripe for secure payment processing</li>
+              <li><strong>Payment Processing:</strong> Orders are fulfilled via manual bank transfer or cryptocurrency — no card data is stored</li>
               <li><strong>Shipping Partners:</strong> Courier services for order delivery</li>
               <li><strong>Email Services:</strong> Postmark for transactional emails</li>
               <li><strong>Analytics:</strong> Google Analytics for website analytics (anonymized data)</li>
@@ -109,7 +109,7 @@ export default function PrivacyPolicyPage() {
               <li><strong>Encryption:</strong> SSL/TLS encryption for data transmission</li>
               <li><strong>Secure Storage:</strong> Encrypted databases and secure servers</li>
               <li><strong>Access Controls:</strong> Limited access to personal information</li>
-              <li><strong>Payment Security:</strong> PCI-DSS compliant payment processing through Stripe</li>
+              <li><strong>Payment Security:</strong> We do not store card details — payments are made via bank transfer or cryptocurrency</li>
               <li><strong>Regular Audits:</strong> Security assessments and vulnerability testing</li>
             </ul>
             <p className="mt-4 text-yellow-400">

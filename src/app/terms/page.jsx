@@ -118,7 +118,7 @@ export default function TermsPage() {
             <h3 className="text-xl font-semibold text-teal-400 mb-3">5.2 Payment</h3>
             <ul className="list-disc list-inside space-y-2 mb-4 ml-4">
               <li>Payment must be made at the time of order</li>
-              <li>We accept major credit cards and other payment methods via Stripe</li>
+              <li>We accept bank transfer, Bitcoin, Ethereum, and other agreed payment methods</li>
               <li>All payments are processed securely through our payment processor</li>
               <li>You authorize us to charge your payment method for the total amount</li>
               <li>Payment information must be accurate and current</li>
