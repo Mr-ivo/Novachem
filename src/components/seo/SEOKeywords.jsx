@@ -1,42 +1,36 @@
-/**
- * SEO Keywords Component
- * Contains all primary research chemical keywords for search engine optimization
- * Keywords: 5cl-adba, 5cladba, 5fadb, jwh-018, adb-butinaca, ab-pinaca, 
- * 5F-EDMB-PINACA, ADB-FUBINACA, 4FADB, AMB-FUBINACA, MDMB-4en-PINACA,
- * Etizolam, Flualprazolam, Clonazolam, Flubromazolam, Diclazepam, Bromazolam,
- * Pyrazolam, Phenazepam, AB-FUBINACA, MDMB-CHMINACA, MDMB-FUBINACA,
- * Isotonitazene, Protonitazene, Metonitazene, Alprazolam, 5fmdmb-2201, 4fadb
- */
-
+// Primary keywords — matches actual products listed on the site
 export const primaryKeywords = [
-  '5cl-adba',
-  '5cladba',
-  '5fadb',
+  // Cannabinoids
+  '5cl-adba', '5-cl-adba', '5cladba',
+  '5fadb', '5-fadb',
+  '6cl-adba', '6-cl-adba',
   'jwh-018',
   'adb-butinaca',
-  'ab-pinaca',
-  '5F-EDMB-PINACA',
-  'ADB-FUBINACA',
-  '4FADB',
-  'AMB-FUBINACA',
-  'MDMB-4en-PINACA',
-  'Etizolam',
-  'Flualprazolam',
-  'Clonazolam',
-  'Flubromazolam',
-  'Diclazepam',
-  'Bromazolam',
-  'Pyrazolam',
-  'Phenazepam',
-  'AB-FUBINACA',
-  'MDMB-CHMINACA',
-  'MDMB-FUBINACA',
-  'Isotonitazene',
-  'Protonitazene',
-  'Metonitazene',
-  'Alprazolam',
-  '5fmdmb-2201',
-  '4fadb'
+  // Opioids
+  'morphine sulfate',
+  'heroin', 'diacetylmorphine',
+  'codeine phosphate',
+  'oxycodone',
+  'hydrocodone',
+  'fentanyl', 'fentanyl citrate',
+  'methadone',
+  'tramadol',
+  // Nitazenes
+  'isotonitazene',
+  'metonitazene',
+  'protonitazene',
+  'butonitazene',
+  'etonitazene',
+  'etodesnitazene',
+  'n-pyrrolidino etonitazene',
+  'bromazolam',
+  // Research Chemicals
+  'crystal meth', 'methamphetamine',
+  '3-cmc', '4-cmc',
+  '3-mmc', '4-mmc', 'mephedrone',
+  'alpha-pihp',
+  'ketamine',
+  'alpha-pvp',
 ];
 
 export const secondaryKeywords = [
@@ -56,24 +50,30 @@ export const secondaryKeywords = [
 export const allKeywords = [...primaryKeywords, ...secondaryKeywords];
 
 // Schema.org structured data for better SEO
-export const getProductSchema = (product) => ({
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: product.name,
-  description: product.description,
-  image: product.images?.[0] || '',
-  offers: {
-    '@type': 'Offer',
-    price: product.price,
-    priceCurrency: 'USD',
-    availability: product.countInStock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-  },
-  aggregateRating: product.rating ? {
-    '@type': 'AggregateRating',
-    ratingValue: product.rating,
-    reviewCount: product.numReviews || 0,
-  } : undefined,
-});
+export const getProductSchema = (product) => {
+  const startingPrice = product.priceVariants?.[0]?.price ?? product.price;
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com';
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: product.images?.[0] || `${BASE_URL}/images/logo.png`,
+    brand: { '@type': 'Brand', name: 'NovaChem' },
+    offers: {
+      '@type': 'Offer',
+      price: startingPrice ?? 0,
+      priceCurrency: 'EUR',
+      availability: product.countInStock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+      url: `${BASE_URL}/products/${product.slug}`,
+    },
+    aggregateRating: product.rating ? {
+      '@type': 'AggregateRating',
+      ratingValue: product.rating,
+      reviewCount: product.numReviews || 1,
+    } : undefined,
+  };
+};
 
 // Get base URL for schemas
 const getBaseUrl = () => {
