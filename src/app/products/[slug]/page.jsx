@@ -23,66 +23,6 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
 
-  // Generate fake reviews for products without reviews
-  const generateFakeReviews = (productName) => {
-    const reviewTemplates = [
-      {
-        names: ['James Mitchell', 'Sarah Chen', 'Michael Roberts', 'Emily Watson', 'David Kumar'],
-        comments: [
-          'Excellent quality! Exactly what I was looking for. Very satisfied with this purchase.',
-          'Outstanding product. Fast shipping and great packaging. Will definitely order again!',
-          'Top quality product. Very happy with my order. Highly recommend this seller.',
-          'Exceptional quality. This has become my go-to place to order. Fast shipping too!',
-          'Very impressed with the quality. Everything arrived as described. Five stars!'
-        ]
-      },
-      {
-        names: ['Alex Thompson', 'Maria Garcia', 'John Anderson', 'Lisa Park', 'Robert Wilson'],
-        comments: [
-          'Great product! Arrived quickly and well-packaged. Will definitely order again.',
-          'Exactly as described. Very satisfied with the quality. Excellent service!',
-          'High quality product. Very pleased with my purchase. Fast delivery too.',
-          'Reliable seller with great products. This is my third order and always perfect.',
-          'Professional service. The product quality is excellent. Highly recommended!'
-        ]
-      },
-      {
-        names: ['Rachel Foster', 'Thomas Lee', 'Amanda Brooks', 'Kevin Martinez', 'Sophie Turner'],
-        comments: [
-          'Perfect! Exactly what I needed. Very satisfied with this purchase.',
-          'Excellent product. I order regularly and it\'s always consistent quality.',
-          'High quality and reliable. Shipping is always fast. Very happy customer!',
-          'Outstanding quality. This is my favorite place to order from now.',
-          'Very pleased with this product. Great quality and fast shipping. Recommended!'
-        ]
-      }
-    ];
-
-    const reviews = [];
-    const numReviews = Math.floor(Math.random() * 3) + 3; // 3-5 reviews
-    
-    for (let i = 0; i < numReviews; i++) {
-      const template = reviewTemplates[i % reviewTemplates.length];
-      const randomNameIndex = Math.floor(Math.random() * template.names.length);
-      const randomCommentIndex = Math.floor(Math.random() * template.comments.length);
-      
-      // Generate random date within last 6 months
-      const daysAgo = Math.floor(Math.random() * 180);
-      const reviewDate = new Date();
-      reviewDate.setDate(reviewDate.getDate() - daysAgo);
-      
-      reviews.push({
-        _id: `fake-review-${i}`,
-        name: template.names[randomNameIndex],
-        rating: Math.random() > 0.3 ? 5 : 4, // Mostly 5 stars, some 4 stars
-        comment: template.comments[randomCommentIndex],
-        createdAt: reviewDate.toISOString()
-      });
-    }
-    
-    // Sort by date (newest first)
-    return reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  };
 
   // Fetch product data
   useEffect(() => {
@@ -325,47 +265,36 @@ export default function ProductDetailPage() {
         </div>
 
         {/* Reviews */}
-        <div className="mt-16">
-          <h2 className="text-xl font-bold text-white mb-6">Customer Reviews</h2>
-          {(() => {
-            const displayReviews = (product.reviews && product.reviews.length > 0)
-              ? product.reviews
-              : generateFakeReviews(product.name);
-            return (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {displayReviews.map((review) => (
-                  <div key={review._id} className="bg-gray-900/60 border border-gray-700/50 rounded-2xl p-5">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-teal-600/20 border border-teal-600/30 rounded-full flex items-center justify-center text-teal-400 font-bold text-sm">
-                          {review.name.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="font-semibold text-white text-sm">{review.name}</p>
-                          <p className="text-gray-600 text-xs">
-                            {new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                          </p>
-                        </div>
+        {product.reviews && product.reviews.length > 0 && (
+          <div className="mt-16">
+            <h2 className="text-xl font-bold text-white mb-6">Customer Reviews</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {product.reviews.map((review) => (
+                <div key={review._id} className="bg-gray-900/60 border border-gray-700/50 rounded-2xl p-5">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 bg-teal-600/20 border border-teal-600/30 rounded-full flex items-center justify-center text-teal-400 font-bold text-sm">
+                        {review.name.charAt(0)}
                       </div>
-                      <div className="flex items-center gap-0.5">
-                        {[...Array(5)].map((_, i) => (
-                          <FaStar key={i} className={`w-3.5 h-3.5 ${i < review.rating ? 'text-yellow-400' : 'text-gray-700'}`} />
-                        ))}
+                      <div>
+                        <p className="font-semibold text-white text-sm">{review.name}</p>
+                        <p className="text-gray-600 text-xs">
+                          {new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                        </p>
                       </div>
                     </div>
-                    <p className="text-gray-400 text-sm leading-relaxed">{review.comment}</p>
-                    <div className="mt-3 flex items-center gap-1.5 text-xs text-green-500">
-                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      Verified Purchase
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar key={i} className={`w-3.5 h-3.5 ${i < review.rating ? 'text-yellow-400' : 'text-gray-700'}`} />
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
-            );
-          })()}
-        </div>
+                  <p className="text-gray-400 text-sm leading-relaxed">{review.comment}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
