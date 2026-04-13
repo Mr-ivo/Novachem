@@ -1,19 +1,10 @@
-/**
- * Dynamic Sitemap for SEO optimization
- * Includes all research chemical keywords: 5cl-adba, 5cladba, 5fadb, jwh-018, 
- * adb-butinaca, ab-pinaca, 5F-EDMB-PINACA, ADB-FUBINACA, 4FADB, AMB-FUBINACA, MDMB-4en-PINACA,
- * Etizolam, Flualprazolam, Clonazolam, Flubromazolam, Diclazepam, Bromazolam, Pyrazolam, Phenazepam,
- * AB-FUBINACA, MDMB-CHMINACA, MDMB-FUBINACA, Isotonitazene, Protonitazene, Metonitazene, Alprazolam,
- * 5fmdmb-2201, 4fadb
- */
-
 import dbConnect from '@/lib/utils/db';
 import Product from '@/models/Product';
 
 export default async function sitemap() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com';
-  
-  // Static pages
+
+  // ── Static pages (only URLs that actually exist in the app) ──
   const staticPages = [
     {
       url: baseUrl,
@@ -26,6 +17,37 @@ export default async function sitemap() {
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
+    },
+    // Category pages — real pages with unique content
+    {
+      url: `${baseUrl}/products?category=cannabinoids`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/products?category=opioids`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/products?category=nitazenes`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/products?category=etomidate`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/products?category=research%20chemicals`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/about`,
@@ -50,6 +72,12 @@ export default async function sitemap() {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/refund`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
     {
       url: `${baseUrl}/terms`,
