@@ -21,4 +21,4 @@ Disallow: /profile
 Disallow: /auth/
 Disallow: /auth/*
 
-Sitemap: https://novachem.com/sitemap.xml
+Sitemap: https://novachemsite.com/sitemap.xml

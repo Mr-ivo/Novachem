@@ -29,8 +29,8 @@ export async function POST(request) {
 
     // Send email using Postmark
     const emailResult = await postmarkClient.sendEmail({
-      From: 'info@novachem.com',
-      To: 'info@novachem.com',
+      From: 'info@novachemsite.com',
+      To: 'info@novachemsite.com',
       ReplyTo: email, // Add Reply-To header with the sender's email
       Subject: `🔔 New Contact Form: ${subject}`,
       TextBody: `
@@ -228,8 +228,8 @@ Reply directly to this email to respond to ${name}.
       <p><strong>NovaChem</strong> - Premium Research Chemicals</p>
       <p>This email was sent from your website contact form</p>
       <p style="margin-top: 10px;">
-        <a href="https://novachem.com" style="color: #0d9488; text-decoration: none;">Visit Website</a> |
-        <a href="https://novachem.com/admin" style="color: #0d9488; text-decoration: none;">Admin Dashboard</a>
+        <a href="https://novachemsite.com" style="color: #0d9488; text-decoration: none;">Visit Website</a> |
+        <a href="https://novachemsite.com/admin" style="color: #0d9488; text-decoration: none;">Admin Dashboard</a>
       </p>
     </div>
   </div>
@@ -255,7 +255,7 @@ Reply directly to this email to respond to ${name}.
     if (canSendConfirmation) {
       try {
         confirmationResult = await postmarkClient.sendEmail({
-            From: 'info@novachem.com',
+            From: 'info@novachemsite.com',
             To: email,
             Subject: '✅ We received your message - NovaChem',
           TextBody: `
@@ -270,14 +270,14 @@ Subject: ${subject}
 Message: ${message}
 Sent: ${timestamp}
 
-If you have any urgent questions, please don't hesitate to reach out to us directly at info@novachem.com.
+If you have any urgent questions, please don't hesitate to reach out to us directly at info@novachemsite.com.
 
 Best regards,
 The NovaChem Team
 
 ---
 NovaChem - Premium Research Chemicals
-Website: https://novachem.com
+Website: https://novachemsite.com
           `,
           HtmlBody: `
 <!DOCTYPE html>
@@ -455,7 +455,7 @@ Website: https://novachem.com
       <div class="info-box">
         <p>
           <strong>💡 Need urgent assistance?</strong><br>
-          Contact us directly at <a href="mailto:info@novachem.com" style="color: #0d9488;">info@novachem.com</a>
+          Contact us directly at <a href="mailto:info@novachemsite.com" style="color: #0d9488;">info@novachemsite.com</a>
         </p>
       </div>
 
@@ -476,9 +476,9 @@ Website: https://novachem.com
       <p style="margin-top: 10px;">This is an automated confirmation email.</p>
       
       <div class="footer-links">
-        <a href="https://novachem.com">Visit Website</a> |
-        <a href="https://novachem.com/products">Browse Products</a> |
-        <a href="https://novachem.com/about">About Us</a>
+        <a href="https://novachemsite.com">Visit Website</a> |
+        <a href="https://novachemsite.com/products">Browse Products</a> |
+        <a href="https://novachemsite.com/about">About Us</a>
       </div>
 
       <p style="margin-top: 15px; font-size: 11px; color: #999;">

@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST() {
   return NextResponse.json(
-    { message: 'Payment processing is handled manually. Please contact info@novachem.com.' },
+    { message: 'Payment processing is handled manually. Please contact info@novachemsite.com.' },
     { status: 410 }
   );
 }

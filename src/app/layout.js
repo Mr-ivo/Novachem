@@ -23,7 +23,7 @@ const inter = Inter({
   fallback: ['system-ui', 'arial'],
 });
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachemsite.com';
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),

@@ -52,7 +52,7 @@ export const allKeywords = [...primaryKeywords, ...secondaryKeywords];
 // Schema.org structured data for better SEO
 export const getProductSchema = (product) => {
   const startingPrice = product.priceVariants?.[0]?.price ?? product.price;
-  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com';
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachemsite.com';
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -77,7 +77,7 @@ export const getProductSchema = (product) => {
 
 // Get base URL for schemas
 const getBaseUrl = () => {
-  return process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com';
+  return process.env.NEXT_PUBLIC_BASE_URL || 'https://novachemsite.com';
 };
 
 // Organization schema
@@ -94,7 +94,7 @@ export const getOrganizationSchema = () => ({
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer support',
-    email: 'info@novachem.com',
+    email: 'info@novachemsite.com',
     availableLanguage: 'English',
   },
   sameAs: [],

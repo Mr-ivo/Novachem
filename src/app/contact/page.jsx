@@ -103,8 +103,8 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-xs text-gray-500 mb-0.5">Email</p>
-                <a href="mailto:info@novachem.com" className="text-white text-sm font-medium hover:text-teal-400 transition-colors">
-                  info@novachem.com
+                <a href="mailto:info@novachemsite.com" className="text-white text-sm font-medium hover:text-teal-400 transition-colors">
+                  info@novachemsite.com
                 </a>
               </div>
             </div>

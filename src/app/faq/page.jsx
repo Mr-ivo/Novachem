@@ -35,12 +35,12 @@ export default function FAQPage() {
     {
       category: 'ordering',
       question: 'What payment methods do you accept?',
-      answer: 'We accept various payment methods including bank transfer, cryptocurrency (Bitcoin, Ethereum), and other secure payment options. Contact us at info@novachem.com after placing your order to receive specific payment instructions for your preferred method.'
+      answer: 'We accept various payment methods including bank transfer, cryptocurrency (Bitcoin, Ethereum), and other secure payment options. Contact us at info@novachemsite.com after placing your order to receive specific payment instructions for your preferred method.'
     },
     {
       category: 'ordering',
       question: 'How do I pay for my order?',
-      answer: 'After adding items to your cart and proceeding to checkout, you\'ll need to contact us at info@novachem.com for payment instructions. We\'ll respond within 24 hours with detailed instructions for your chosen payment method. Once payment is confirmed, we\'ll process and ship your order.'
+      answer: 'After adding items to your cart and proceeding to checkout, you\'ll need to contact us at info@novachemsite.com for payment instructions. We\'ll respond within 24 hours with detailed instructions for your chosen payment method. Once payment is confirmed, we\'ll process and ship your order.'
     },
     {
       category: 'ordering',
@@ -50,12 +50,12 @@ export default function FAQPage() {
     {
       category: 'ordering',
       question: 'Can I cancel my order after placing it?',
-      answer: 'You can cancel your order for a full refund only if it hasn\'t been processed or shipped yet. Orders are typically processed within 24-48 hours. Contact us immediately at info@novachem.com with your order number if you need to cancel.'
+      answer: 'You can cancel your order for a full refund only if it hasn\'t been processed or shipped yet. Orders are typically processed within 24-48 hours. Contact us immediately at info@novachemsite.com with your order number if you need to cancel.'
     },
     {
       category: 'ordering',
       question: 'Do you offer bulk discounts?',
-      answer: 'Yes! We offer volume discounts for bulk orders. Contact us at info@novachem.com with details about the products and quantities you need, and we\'ll provide a custom quote.'
+      answer: 'Yes! We offer volume discounts for bulk orders. Contact us at info@novachemsite.com with details about the products and quantities you need, and we\'ll provide a custom quote.'
     },
     {
       category: 'ordering',
@@ -92,7 +92,7 @@ export default function FAQPage() {
     {
       category: 'shipping',
       question: 'What if my package is lost or stolen?',
-      answer: 'If your package is marked as delivered but you haven\'t received it, wait 24-48 hours and check with neighbors or building management. If still missing, contact us immediately at info@novachem.com with your tracking number.'
+      answer: 'If your package is marked as delivered but you haven\'t received it, wait 24-48 hours and check with neighbors or building management. If still missing, contact us immediately at info@novachemsite.com with your tracking number.'
     },
 
     // Products & Quality
@@ -114,7 +114,7 @@ export default function FAQPage() {
     {
       category: 'products',
       question: 'Can I request a Certificate of Analysis (COA)?',
-      answer: 'Yes! Contact us at info@novachem.com with your order number and product name, and we\'ll provide the COA for your batch within 24-48 hours.'
+      answer: 'Yes! Contact us at info@novachemsite.com with your order number and product name, and we\'ll provide the COA for your batch within 24-48 hours.'
     },
     {
       category: 'products',
@@ -156,7 +156,7 @@ export default function FAQPage() {
     {
       category: 'account',
       question: 'How do I delete my account?',
-      answer: 'Contact us at info@novachem.com with your account email and request account deletion. We\'ll process your request within 7 business days. Note that order history may be retained for legal compliance.'
+      answer: 'Contact us at info@novachemsite.com with your account email and request account deletion. We\'ll process your request within 7 business days. Note that order history may be retained for legal compliance.'
     },
 
     // Returns & Refunds
@@ -200,17 +200,17 @@ export default function FAQPage() {
     {
       category: 'shipping',
       question: 'Can I change my shipping address after ordering?',
-      answer: 'Contact us immediately at info@novachem.com if you need to change your shipping address. We can only modify the address if the order hasn\'t been shipped yet.'
+      answer: 'Contact us immediately at info@novachemsite.com if you need to change your shipping address. We can only modify the address if the order hasn\'t been shipped yet.'
     },
     {
       category: 'account',
       question: 'Do you offer customer support?',
-      answer: 'Yes! Contact us via email at info@novachem.com, use our contact form, or chat with us using the LiveChat widget. We typically respond within 24 hours.'
+      answer: 'Yes! Contact us via email at info@novachemsite.com, use our contact form, or chat with us using the LiveChat widget. We typically respond within 24 hours.'
     },
     {
       category: 'ordering',
       question: 'Can I order by phone?',
-      answer: 'Currently, we only accept orders through our website for security and accuracy. If you need assistance placing an order, contact us at info@novachem.com and we\'ll guide you through the process.'
+      answer: 'Currently, we only accept orders through our website for security and accuracy. If you need assistance placing an order, contact us at info@novachemsite.com and we\'ll guide you through the process.'
     },
   ];
 
@@ -332,7 +332,7 @@ export default function FAQPage() {
               className="inline-flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold py-3 px-6 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-teal-900/30 text-sm">
               Contact Support
             </Link>
-            <a href="mailto:info@novachem.com"
+            <a href="mailto:info@novachemsite.com"
               className="inline-flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors text-sm">
               Email Us
             </a>

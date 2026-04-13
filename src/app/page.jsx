@@ -4,7 +4,7 @@ import Product from '@/models/Product';
 import HomeClient from '@/components/home/HomeClient';
 import { getOrganizationSchema, getWebsiteSchema } from '@/components/seo/SEOKeywords';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachemsite.com';
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),

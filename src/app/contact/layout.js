@@ -1,5 +1,5 @@
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://novachemsite.com'),
   title: 'Contact Us | NovaChem - Get in Touch',
   description: 'Contact NovaChem for inquiries about research chemicals, orders, shipping, or support. We are here to help with all your questions.',
   alternates: {

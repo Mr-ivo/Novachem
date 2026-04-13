@@ -9,7 +9,7 @@ export async function generateMetadata({ searchParams }) {
   const category = params?.category || '';
   
   // Always use /products as canonical to avoid duplicate content from query params
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachemsite.com';
   
   return {
     metadataBase: new URL(baseUrl),

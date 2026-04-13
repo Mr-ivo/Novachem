@@ -1,7 +1,7 @@
 import dbConnect from '@/lib/utils/db';
 import Product from '@/models/Product';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://novachemsite.com';
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

@@ -3,7 +3,7 @@ import { FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 export default function WhatsAppButton() {
   const whatsappNumber = '10000000000'; // TODO: Replace with your WhatsApp number
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
-  const emailAddress = 'info@novachem.com'; // TODO: Replace with your email
+  const emailAddress = 'info@novachemsite.com'; // TODO: Replace with your email
 
   return (
     <div className="fixed left-6 bottom-6 z-50 flex flex-col gap-4 items-start">

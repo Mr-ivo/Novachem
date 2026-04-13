@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { FaUndo, FaExclamationTriangle, FaCheckCircle, FaClock, FaEnvelope, FaTimesCircle } from 'react-icons/fa';
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://novachemsite.com'),
   title: 'Return & Refund Policy | NovaChem',
   description: 'Learn about our return policy, refund process, and how to request returns for defective or incorrect products.',
   alternates: {
@@ -163,7 +163,7 @@ export default function RefundPolicyPage() {
                   <span className="bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-4 font-bold">1</span>
                   <div>
                     <p className="font-semibold text-white mb-1">Contact Us Immediately</p>
-                    <p className="text-sm">Email <a href="mailto:info@novachem.com" className="text-teal-400 hover:text-teal-300">info@novachem.com</a> within the specified timeframe</p>
+                    <p className="text-sm">Email <a href="mailto:info@novachemsite.com" className="text-teal-400 hover:text-teal-300">info@novachemsite.com</a> within the specified timeframe</p>
                     <p className="text-xs text-gray-400 mt-1">Include: Order number, product name, and reason for return</p>
                   </div>
                 </li>
@@ -367,7 +367,7 @@ export default function RefundPolicyPage() {
               <p className="font-semibold text-white mb-2">✅ Cancellation Possible</p>
               <p className="text-sm">
                 You may cancel your order for a full refund if it hasn't been processed or shipped yet. 
-                Contact us immediately at <a href="mailto:info@novachem.com" className="text-teal-400 hover:text-teal-300">info@novachem.com</a> with your order number.
+                Contact us immediately at <a href="mailto:info@novachemsite.com" className="text-teal-400 hover:text-teal-300">info@novachemsite.com</a> with your order number.
               </p>
             </div>
 
@@ -396,7 +396,7 @@ export default function RefundPolicyPage() {
                 <li>Reporting to fraud prevention agencies</li>
               </ul>
               <p className="text-yellow-400 font-semibold">
-                Please contact us first at <a href="mailto:info@novachem.com" className="text-teal-400 hover:text-teal-300">info@novachem.com</a>. We're committed to resolving all issues fairly and promptly.
+                Please contact us first at <a href="mailto:info@novachemsite.com" className="text-teal-400 hover:text-teal-300">info@novachemsite.com</a>. We're committed to resolving all issues fairly and promptly.
               </p>
             </div>
           </section>
@@ -411,7 +411,7 @@ export default function RefundPolicyPage() {
               Have questions about returns or need to start a return request?
             </p>
             <div className="bg-gray-900 p-6 rounded-lg">
-              <p className="mb-3"><strong className="text-white">Email:</strong> <a href="mailto:info@novachem.com" className="text-teal-400 hover:text-teal-300">info@novachem.com</a></p>
+              <p className="mb-3"><strong className="text-white">Email:</strong> <a href="mailto:info@novachemsite.com" className="text-teal-400 hover:text-teal-300">info@novachemsite.com</a></p>
               <p className="mb-3"><strong className="text-white">Subject Line:</strong> Return Request - Order #[Your Order Number]</p>
               <p className="mb-3"><strong className="text-white">Response Time:</strong> Within 24 hours</p>
               <p className="mb-3"><strong className="text-white">Contact Form:</strong> <Link href="/contact" className="text-teal-400 hover:text-teal-300">Click here</Link></p>

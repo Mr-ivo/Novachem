@@ -18,14 +18,14 @@ async function seedDatabase() {
     console.log('Cleared existing products');
     
     // Create admin user if it doesn't exist
-    const adminExists = await User.findOne({ email: 'admin@novachem.com' });
+    const adminExists = await User.findOne({ email: 'admin@novachemsite.com' });
     if (!adminExists) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash('admin123', salt);
       
       await User.create({
         name: 'Admin User',
-        email: 'admin@novachem.com',
+        email: 'admin@novachemsite.com',
         password: hashedPassword,
         isAdmin: true,
       });

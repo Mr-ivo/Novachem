@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://novachem.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://novachemsite.com'),
   title: 'Privacy Policy | NovaChem',
   description: 'Privacy Policy for NovaChem — Learn how we collect, use, and protect your personal information when purchasing research chemicals.',
   alternates: {
@@ -167,8 +167,8 @@ export default function PrivacyPolicyPage() {
 
             <p className="mt-4">
               To exercise your rights, please contact us at{' '}
-              <a href="mailto:info@novachem.com" className="text-teal-400 hover:text-teal-300">
-                info@novachem.com
+              <a href="mailto:info@novachemsite.com" className="text-teal-400 hover:text-teal-300">
+                info@novachemsite.com
               </a>
             </p>
           </section>
@@ -227,7 +227,7 @@ export default function PrivacyPolicyPage() {
               If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact us:
             </p>
             <div className="bg-gray-900 p-6 rounded-lg">
-              <p className="mb-2"><strong className="text-white">Email:</strong> <a href="mailto:info@novachem.com" className="text-teal-400 hover:text-teal-300">info@novachem.com</a></p>
+              <p className="mb-2"><strong className="text-white">Email:</strong> <a href="mailto:info@novachemsite.com" className="text-teal-400 hover:text-teal-300">info@novachemsite.com</a></p>
               <p className="mb-2"><strong className="text-white">Website:</strong> <Link href="/contact" className="text-teal-400 hover:text-teal-300">Contact Form</Link></p>
               <p><strong className="text-white">Response Time:</strong> We aim to respond within 48 hours</p>
             </div>

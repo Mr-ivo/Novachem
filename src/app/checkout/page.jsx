@@ -75,8 +75,8 @@ export default function CheckoutPage() {
       body: (
         <>
           <p className="text-gray-400 text-sm mb-3">Send your order details to:</p>
-          <a href="mailto:info@novachem.com" className="text-teal-400 hover:text-teal-300 font-semibold text-base transition-colors">
-            info@novachem.com
+          <a href="mailto:info@novachemsite.com" className="text-teal-400 hover:text-teal-300 font-semibold text-base transition-colors">
+            info@novachemsite.com
           </a>
           <p className="text-gray-600 text-xs mt-2">Include your preferred payment method in the message.</p>
         </>
