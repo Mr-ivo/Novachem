@@ -58,7 +58,7 @@ export default function ProductCard({ product }) {
                 quality={85}
                 onError={(e) => {
                   e.target.onerror = null; 
-                  e.target.src = '/images/placeholder.jpg';
+                  e.target.src = '/images/Laboratory-Science.jpg';
                 }}
               />
             </motion.div>
