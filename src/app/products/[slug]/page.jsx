@@ -11,8 +11,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 export default function ProductDetailPage() {
-  const gramOptions = [25, 50, 100, 500, 1000];
-  const [selectedGrams, setSelectedGrams] = useState(25);
+  const [selectedGrams, setSelectedGrams] = useState(null);
 
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
@@ -42,6 +41,7 @@ export default function ProductDetailPage() {
         // Set default selected variant if available
         if (data.priceVariants && data.priceVariants.length > 0) {
           setSelectedVariant(data.priceVariants[0]);
+          setSelectedGrams(data.priceVariants[0].quantity);
         }
       } catch (err) {
         console.error('Error fetching product:', err);
@@ -57,38 +57,13 @@ export default function ProductDetailPage() {
     }
   }, [slug]);
 
-  // Fixed pricing tiers
-  const calculateEuroPrice = (grams) => {
-    // Fixed prices for each gram option
-    const pricingTiers = {
-      25: 400,
-      50: 550,
-      100: 700,
-      500: 1200,
-      1000: 2100,
-    };
-    
-    // Return the price for the selected gram amount
-    const price = pricingTiers[grams] || 400;
-    return Number(price).toFixed(2);
-  };
-
   const handleAddToCart = () => {
-    if (product) {
-      // Calculate the euro price for the selected grams
-      const euroPrice = parseFloat(calculateEuroPrice(selectedGrams));
-      // Build a cart item variant object for grams
+    if (product && selectedVariant) {
       const gramsVariant = {
-        grams: selectedGrams,
-        price: euroPrice,
+        grams: selectedVariant.quantity,
+        price: selectedVariant.price,
       };
-      addToCart(
-        {
-          ...product,
-        },
-        quantity,
-        gramsVariant
-      );
+      addToCart({ ...product }, quantity, gramsVariant);
     }
   };
 
@@ -196,28 +171,30 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Gram selector — pill buttons */}
-            <div className="mb-5">
-              <p className="text-sm font-medium text-gray-400 mb-2">Select quantity</p>
-              <div className="flex flex-wrap gap-2 mb-3">
-                {gramOptions.map(g => (
-                  <button
-                    key={g}
-                    onClick={() => setSelectedGrams(g)}
-                    className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
-                      selectedGrams === g
-                        ? 'bg-teal-600 border-teal-600 text-white shadow-lg shadow-teal-900/30'
-                        : 'bg-gray-900/60 border-gray-700/50 text-gray-400 hover:border-gray-600 hover:text-white'
-                    }`}
-                  >
-                    {g}g
-                  </button>
-                ))}
+            {product.priceVariants && product.priceVariants.length > 0 && (
+              <div className="mb-5">
+                <p className="text-sm font-medium text-gray-400 mb-2">Select quantity</p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {product.priceVariants.map(variant => (
+                    <button
+                      key={variant.quantity}
+                      onClick={() => { setSelectedVariant(variant); setSelectedGrams(variant.quantity); }}
+                      className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
+                        selectedGrams === variant.quantity
+                          ? 'bg-teal-600 border-teal-600 text-white shadow-lg shadow-teal-900/30'
+                          : 'bg-gray-900/60 border-gray-700/50 text-gray-400 hover:border-gray-600 hover:text-white'
+                      }`}
+                    >
+                      {variant.quantity}g
+                    </button>
+                  ))}
+                </div>
+                <div className="text-2xl font-extrabold text-white">
+                  €{selectedVariant ? Number(selectedVariant.price).toFixed(2) : '—'}
+                  <span className="ml-2 text-sm text-gray-500 font-normal">for {selectedGrams}g</span>
+                </div>
               </div>
-              <div className="text-2xl font-extrabold text-white">
-                €{calculateEuroPrice(selectedGrams)}
-                <span className="ml-2 text-sm text-gray-500 font-normal">for {selectedGrams}g</span>
-              </div>
-            </div>
+            )}
 
             {/* Qty + Add to cart */}
             <div className="flex items-center gap-3 mb-5">
