@@ -20,5 +20,6 @@ Disallow: /checkout/*
 Disallow: /profile
 Disallow: /auth/
 Disallow: /auth/*
+Disallow: /login
 
 Sitemap: https://novachemsite.com/sitemap.xml

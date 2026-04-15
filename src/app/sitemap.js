@@ -18,37 +18,6 @@ export default async function sitemap() {
       changeFrequency: 'daily',
       priority: 0.9,
     },
-    // Category pages — real pages with unique content
-    {
-      url: `${baseUrl}/products?category=cannabinoids`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/products?category=opioids`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/products?category=nitazenes`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/products?category=etomidate`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/products?category=research%20chemicals`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
     {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
