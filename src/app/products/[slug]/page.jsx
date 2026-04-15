@@ -11,14 +11,21 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 export default function ProductDetailPage() {
-  const [selectedGrams, setSelectedGrams] = useState(null);
+  const pricingTiers = [
+    { quantity: 25, price: 400 },
+    { quantity: 50, price: 550 },
+    { quantity: 100, price: 700 },
+    { quantity: 500, price: 1200 },
+    { quantity: 1000, price: 2100 },
+  ];
+  const [selectedGrams, setSelectedGrams] = useState(25);
+  const [selectedTier, setSelectedTier] = useState(pricingTiers[0]);
 
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
 
@@ -38,11 +45,7 @@ export default function ProductDetailPage() {
         const { data } = await axios.get(endpoint);
         setProduct(data);
         
-        // Set default selected variant if available
-        if (data.priceVariants && data.priceVariants.length > 0) {
-          setSelectedVariant(data.priceVariants[0]);
-          setSelectedGrams(data.priceVariants[0].quantity);
-        }
+        // priceVariants not used on detail page — fixed tiers are used instead
       } catch (err) {
         console.error('Error fetching product:', err);
         setError(err.response?.data?.message || 'Failed to load product');
@@ -58,10 +61,10 @@ export default function ProductDetailPage() {
   }, [slug]);
 
   const handleAddToCart = () => {
-    if (product && selectedVariant) {
+    if (product) {
       const gramsVariant = {
-        grams: selectedVariant.quantity,
-        price: selectedVariant.price,
+        grams: selectedTier.quantity,
+        price: selectedTier.price,
       };
       addToCart({ ...product }, quantity, gramsVariant);
     }
@@ -170,31 +173,29 @@ export default function ProductDetailPage() {
               </span>
             </div>
 
-            {/* Gram selector — pill buttons */}
-            {product.priceVariants && product.priceVariants.length > 0 && (
-              <div className="mb-5">
-                <p className="text-sm font-medium text-gray-400 mb-2">Select quantity</p>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {product.priceVariants.map(variant => (
-                    <button
-                      key={variant.quantity}
-                      onClick={() => { setSelectedVariant(variant); setSelectedGrams(variant.quantity); }}
-                      className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
-                        selectedGrams === variant.quantity
-                          ? 'bg-teal-600 border-teal-600 text-white shadow-lg shadow-teal-900/30'
-                          : 'bg-gray-900/60 border-gray-700/50 text-gray-400 hover:border-gray-600 hover:text-white'
-                      }`}
-                    >
-                      {variant.quantity}g
-                    </button>
-                  ))}
-                </div>
-                <div className="text-2xl font-extrabold text-white">
-                  €{selectedVariant ? Number(selectedVariant.price).toFixed(2) : '—'}
-                  <span className="ml-2 text-sm text-gray-500 font-normal">for {selectedGrams}g</span>
-                </div>
+            {/* Gram selector — fixed pricing tiers */}
+            <div className="mb-5">
+              <p className="text-sm font-medium text-gray-400 mb-2">Select quantity</p>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {pricingTiers.map(tier => (
+                  <button
+                    key={tier.quantity}
+                    onClick={() => { setSelectedTier(tier); setSelectedGrams(tier.quantity); }}
+                    className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
+                      selectedGrams === tier.quantity
+                        ? 'bg-teal-600 border-teal-600 text-white shadow-lg shadow-teal-900/30'
+                        : 'bg-gray-900/60 border-gray-700/50 text-gray-400 hover:border-gray-600 hover:text-white'
+                    }`}
+                  >
+                    {tier.quantity}g
+                  </button>
+                ))}
               </div>
-            )}
+              <div className="text-2xl font-extrabold text-white">
+                €{Number(selectedTier.price).toFixed(2)}
+                <span className="ml-2 text-sm text-gray-500 font-normal">for {selectedGrams}g</span>
+              </div>
+            </div>
 
             {/* Qty + Add to cart */}
             <div className="flex items-center gap-3 mb-5">
