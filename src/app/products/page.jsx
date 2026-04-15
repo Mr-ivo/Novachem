@@ -3,6 +3,8 @@ import ProductList from '@/components/product/ProductList';
 import dbConnect from '@/lib/utils/db';
 import Product from '@/models/Product';
 
+export const dynamic = 'force-dynamic';
+
 // Dynamic Metadata for SEO - handles query parameters
 export async function generateMetadata({ searchParams }) {
   const params = await searchParams;

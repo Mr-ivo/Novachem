@@ -15,13 +15,12 @@ export default function ProductCard({ product }) {
     return null;
   }
   
-  // Get the lowest price from price variants or use the product's main price
-  const lowestPrice = product.priceVariants && product.priceVariants.length > 0
-    ? product.priceVariants.reduce((min, variant) => 
-        variant.price < min ? variant.price : min, 
-        product.priceVariants[0]?.price || 0
-      )
-    : (product.price || 0);
+  // Show the admin-set price first; fall back to lowest priceVariant
+  const displayPrice = product.price && product.price > 0
+    ? product.price
+    : product.priceVariants && product.priceVariants.length > 0
+      ? product.priceVariants.reduce((min, v) => v.price < min ? v.price : min, product.priceVariants[0]?.price || 0)
+      : 0;
 
   return (
     <motion.div 
@@ -195,7 +194,7 @@ export default function ProductCard({ product }) {
             className="text-white"
             whileHover={{ scale: 1.05 }}
           >
-            <span className="font-bold text-lg">€{lowestPrice.toFixed(2)}</span>
+            <span className="font-bold text-lg">€{displayPrice.toFixed(2)}</span>
             {product.priceVariants && product.priceVariants.length > 1 && (
               <span className="text-gray-400 text-sm ml-1">and up</span>
             )}
