@@ -269,9 +269,14 @@ function FeaturedProductsSection({ products = [] }) {
                   <div className="p-4 flex flex-col flex-1">
                     <span className="text-teal-500 text-[11px] font-bold uppercase tracking-widest mb-1">{product.category}</span>
                     <Link href={`/products/${product.slug}`} className="block mb-2">
-                      <h3 className="text-white font-semibold text-base leading-snug hover:text-teal-400 transition-colors line-clamp-2">
-                        {product.name}
-                      </h3>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-white font-semibold text-base leading-snug hover:text-teal-400 transition-colors line-clamp-2">
+                          {product.name}
+                        </h3>
+                        {product.category?.toLowerCase() === 'opioids' && (
+                          <span className="text-[10px] font-bold bg-cyan-700/60 text-cyan-300 px-1.5 py-0.5 rounded-full shrink-0">Powder</span>
+                        )}
+                      </div>
                     </Link>
                     <StarRow rating={product.rating} reviews={product.numReviews} />
                     <p className="text-gray-500 text-xs mt-2 mb-4 line-clamp-2 leading-relaxed">{product.description}</p>

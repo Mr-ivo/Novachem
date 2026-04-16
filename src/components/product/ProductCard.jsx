@@ -144,13 +144,18 @@ export default function ProductCard({ product }) {
 
       <div className="p-4">
         <Link href={`/products/${product.slug || product._id}`}>
-          <motion.h3 
-            className="text-lg font-semibold text-white hover:text-teal-400 transition-colors line-clamp-1"
-            whileHover={{ x: 3 }}
-            transition={{ type: "spring", stiffness: 400 }}
-          >
-            {product.name || 'Unnamed Product'}
-          </motion.h3>
+          <div className="flex items-center gap-2">
+            <motion.h3 
+              className="text-lg font-semibold text-white hover:text-teal-400 transition-colors line-clamp-1"
+              whileHover={{ x: 3 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              {product.name || 'Unnamed Product'}
+            </motion.h3>
+            {product.category?.toLowerCase() === 'opioids' && (
+              <span className="text-[10px] font-bold bg-cyan-700/60 text-cyan-300 px-1.5 py-0.5 rounded-full shrink-0">Powder</span>
+            )}
+          </div>
         </Link>
 
         {/* Star rating with animation */}

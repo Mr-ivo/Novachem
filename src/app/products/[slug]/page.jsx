@@ -159,7 +159,12 @@ export default function ProductDetailPage() {
               </span>
             </div>
 
-            <h1 className="text-3xl font-extrabold text-white mb-3 leading-tight">{product.name}</h1>
+            <div className="flex items-center gap-3 mb-3 flex-wrap">
+              <h1 className="text-3xl font-extrabold text-white leading-tight">{product.name}</h1>
+              {product.category?.toLowerCase() === 'opioids' && (
+                <span className="text-xs font-bold bg-cyan-700/60 text-cyan-300 px-2.5 py-1 rounded-full">Powder</span>
+              )}
+            </div>
 
             {/* Stars */}
             <div className="flex items-center gap-2 mb-5">
