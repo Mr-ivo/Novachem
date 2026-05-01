@@ -8,6 +8,13 @@ const reviewSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+const priceVariantSchema = new mongoose.Schema({
+  label: { type: String, required: true },  // e.g. "1g", "10ml", "5 pods"
+  quantity: { type: Number, required: true },
+  unit: { type: String, required: true },   // e.g. "g", "ml", "pods"
+  price: { type: Number, required: true },
+}, { _id: false });
+
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
@@ -25,6 +32,7 @@ const productSchema = new mongoose.Schema({
   images: [{ type: String }],
   description: { type: String, required: true },
   price: { type: Number, required: true, default: 0 },
+  priceVariants: [priceVariantSchema],
   countInStock: { type: Number, required: true, default: 0 },
   rating: { type: Number, required: true, default: 0 },
   numReviews: { type: Number, required: true, default: 0 },

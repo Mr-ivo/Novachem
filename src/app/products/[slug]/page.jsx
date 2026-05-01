@@ -10,42 +10,38 @@ import ProtectedImage from '@/components/common/ProtectedImage';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-export default function ProductDetailPage() {
-  const pricingTiers = [
-    { quantity: 25, price: 400 },
-    { quantity: 50, price: 550 },
-    { quantity: 100, price: 700 },
-    { quantity: 500, price: 1200 },
-    { quantity: 1000, price: 2100 },
-  ];
-  const [selectedGrams, setSelectedGrams] = useState(25);
-  const [selectedTier, setSelectedTier] = useState(pricingTiers[0]);
+const DEFAULT_TIERS = [
+  { label: '25g', quantity: 25, unit: 'g', price: 400 },
+  { label: '50g', quantity: 50, unit: 'g', price: 550 },
+  { label: '100g', quantity: 100, unit: 'g', price: 700 },
+  { label: '500g', quantity: 500, unit: 'g', price: 1200 },
+  { label: '1000g', quantity: 1000, unit: 'g', price: 2100 },
+];
 
+export default function ProductDetailPage() {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [selectedTier, setSelectedTier] = useState(null);
   const { addToCart } = useCart();
-
 
   // Fetch product data
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        
-        // Try to determine if the slug is actually a MongoDB ID
         const isMongoId = /^[0-9a-fA-F]{24}$/.test(slug);
-        
-        // Choose the appropriate API endpoint based on the slug format
         const endpoint = isMongoId ? `/api/products/id/${slug}` : `/api/products/${slug}`;
-        
         const { data } = await axios.get(endpoint);
         setProduct(data);
-        
-        // priceVariants not used on detail page — fixed tiers are used instead
+        // Set first tier from product variants or default
+        const tiers = data.priceVariants && data.priceVariants.length > 0
+          ? data.priceVariants
+          : DEFAULT_TIERS;
+        setSelectedTier(tiers[0]);
       } catch (err) {
         console.error('Error fetching product:', err);
         setError(err.response?.data?.message || 'Failed to load product');
@@ -60,13 +56,20 @@ export default function ProductDetailPage() {
     }
   }, [slug]);
 
+  // Resolve active tiers for this product
+  const pricingTiers = product?.priceVariants && product.priceVariants.length > 0
+    ? product.priceVariants
+    : DEFAULT_TIERS;
+
   const handleAddToCart = () => {
-    if (product) {
-      const gramsVariant = {
-        grams: selectedTier.quantity,
+    if (product && selectedTier) {
+      const variant = {
+        label: selectedTier.label,
+        quantity: selectedTier.quantity,
+        unit: selectedTier.unit,
         price: selectedTier.price,
       };
-      addToCart({ ...product }, quantity, gramsVariant);
+      addToCart({ ...product }, quantity, variant);
     }
   };
 
@@ -178,28 +181,30 @@ export default function ProductDetailPage() {
               </span>
             </div>
 
-            {/* Gram selector — fixed pricing tiers */}
+            {/* Quantity selector — dynamic per product */}
             <div className="mb-5">
               <p className="text-sm font-medium text-gray-400 mb-2">Select quantity</p>
               <div className="flex flex-wrap gap-2 mb-3">
                 {pricingTiers.map(tier => (
                   <button
-                    key={tier.quantity}
-                    onClick={() => { setSelectedTier(tier); setSelectedGrams(tier.quantity); }}
+                    key={tier.label}
+                    onClick={() => setSelectedTier(tier)}
                     className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
-                      selectedGrams === tier.quantity
+                      selectedTier?.label === tier.label
                         ? 'bg-teal-600 border-teal-600 text-white shadow-lg shadow-teal-900/30'
                         : 'bg-gray-900/60 border-gray-700/50 text-gray-400 hover:border-gray-600 hover:text-white'
                     }`}
                   >
-                    {tier.quantity}g
+                    {tier.label}
                   </button>
                 ))}
               </div>
-              <div className="text-2xl font-extrabold text-white">
-                €{Number(selectedTier.price).toFixed(2)}
-                <span className="ml-2 text-sm text-gray-500 font-normal">for {selectedGrams}g</span>
-              </div>
+              {selectedTier && (
+                <div className="text-2xl font-extrabold text-white">
+                  €{Number(selectedTier.price).toFixed(2)}
+                  <span className="ml-2 text-sm text-gray-500 font-normal">for {selectedTier.label}</span>
+                </div>
+              )}
             </div>
 
             {/* Qty + Add to cart */}
