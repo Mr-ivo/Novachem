@@ -115,9 +115,23 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-xs text-gray-500 mb-0.5">WhatsApp</p>
-                <a href="https://wa.me/10000000000" target="_blank" rel="noopener noreferrer"
+                <a href="https://wa.me/15125922145" target="_blank" rel="noopener noreferrer"
                   className="text-white text-sm font-medium hover:text-green-400 transition-colors">
-                  +1 000 000 0000
+                  +1 512-592-2145
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+                <svg className="text-blue-400 text-xs" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 mb-0.5">Phone</p>
+                <a href="tel:+15125922145" className="text-white text-sm font-medium hover:text-blue-400 transition-colors">
+                  +1 512-592-2145
                 </a>
               </div>
             </div>

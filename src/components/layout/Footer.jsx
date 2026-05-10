@@ -80,6 +80,16 @@ export default function Footer() {
               Premium research chemicals sourced and verified for scientific excellence. Trusted by labs and researchers worldwide.
             </p>
 
+            {/* Contact Info */}
+            <div className="space-y-2">
+              <a href="tel:+15125922145" className="text-sm text-gray-400 hover:text-teal-400 transition-colors">
+                +1 512-592-2145
+              </a>
+              <a href="mailto:info@novachemsite.com" className="text-sm text-gray-400 hover:text-teal-400 transition-colors block">
+                info@novachemsite.com
+              </a>
+            </div>
+
             {/* Trust badges */}
             <div className="flex flex-wrap gap-2">
               {['Lab Verified', 'Discreet Shipping', 'Secure Payment'].map((badge) => (
