@@ -198,7 +198,7 @@ export async function POST(request) {
     */
     
     // Calculate other prices
-    const shippingPrice = itemsPrice > 100 ? 0 : 15; // Free shipping over $100
+    const shippingPrice = 50; // Flat shipping fee
     const taxPrice = itemsPrice * 0.07; // 7% tax
     const totalPrice = itemsPrice + shippingPrice + taxPrice;
     

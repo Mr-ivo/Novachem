@@ -82,7 +82,7 @@ export default function Footer() {
 
             {/* Contact Info */}
             <div className="space-y-2">
-              <a href="tel:+15125922145" className="text-sm text-gray-400 hover:text-teal-400 transition-colors">
+              <a href="tel:+19852913802" className="text-sm text-gray-400 hover:text-teal-400 transition-colors">
                 +1 512-592-2145
               </a>
               <a href="mailto:info@novachemsite.com" className="text-sm text-gray-400 hover:text-teal-400 transition-colors block">

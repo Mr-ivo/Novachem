@@ -6,11 +6,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FaTrash, FaArrowLeft, FaLock, FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '@/components/cart/CartProvider';
-import { useAuth } from '@/components/auth/AuthProvider';
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart, cartTotal } = useCart();
-  const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
@@ -24,11 +22,7 @@ export default function CartPage() {
   }
 
   const handleCheckout = () => {
-    if (!isAuthenticated) {
-      router.push('/auth/login?redirect=checkout');
-    } else {
-      router.push('/checkout');
-    }
+    router.push('/checkout');
   };
 
   if (cart.length === 0) {

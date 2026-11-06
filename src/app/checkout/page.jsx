@@ -6,10 +6,10 @@ import Link from 'next/link';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { useCart } from '@/components/cart/CartProvider';
 import OrderSummary from '@/components/checkout/OrderSummary';
-import { FaLock } from 'react-icons/fa';
+import { FaLock, FaWhatsapp } from 'react-icons/fa';
 
 export default function CheckoutPage() {
-  const { user, loading: authLoading, isAuthenticated } = useAuth();
+  const { loading: authLoading } = useAuth();
   const { cart } = useCart();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -19,14 +19,21 @@ export default function CheckoutPage() {
     tax: 0,
     total: 0
   });
+  const [buyerInfo, setBuyerInfo] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    country: '',
+  });
+
+  const handleBuyerChange = (e) => {
+    setBuyerInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   useEffect(() => {
-    // Redirect to login if not authenticated
-    if (!authLoading && !isAuthenticated) {
-      router.push('/login?redirect=/checkout');
-      return;
-    }
-    
     // Process cart items
     const processCart = async () => {
       try {
@@ -38,7 +45,7 @@ export default function CheckoutPage() {
         
         // Calculate order details
         const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const shipping = subtotal > 100 ? 0 : 15; // Free shipping over $100
+        const shipping = 50; // Flat shipping fee
         const tax = subtotal * 0.07; // 7% tax
         const total = subtotal + shipping + tax;
         
@@ -55,10 +62,10 @@ export default function CheckoutPage() {
       }
     };
     
-    if (!authLoading && isAuthenticated) {
+    if (!authLoading) {
       processCart();
     }
-  }, [authLoading, isAuthenticated, router, cart]);
+  }, [authLoading, router, cart]);
 
   if (authLoading || loading) {
     return (
@@ -68,36 +75,45 @@ export default function CheckoutPage() {
     );
   }
 
-  const steps = [
-    {
-      n: 1,
-      title: 'Contact Us',
-      body: (
-        <>
-          <p className="text-gray-400 text-sm mb-3">Send your order details to:</p>
-          <a href="mailto:info@novachemsite.com" className="text-teal-400 hover:text-teal-300 font-semibold text-base transition-colors">
-            info@novachemsite.com
-          </a>
-          <p className="text-gray-600 text-xs mt-2">Include your preferred payment method in the message.</p>
-        </>
-      ),
-    },
-    {
-      n: 2,
-      title: 'Receive Payment Instructions',
-      body: <p className="text-gray-400 text-sm">We&apos;ll respond within 24 hours with detailed, secure payment instructions for your chosen method.</p>,
-    },
-    {
-      n: 3,
-      title: 'Complete Payment',
-      body: <p className="text-gray-400 text-sm">Follow the provided instructions to transfer payment securely via bank transfer or cryptocurrency.</p>,
-    },
-    {
-      n: 4,
-      title: 'Order Dispatched',
-      body: <p className="text-gray-400 text-sm">Once payment is confirmed we process and dispatch your order within 24–48 business hours.</p>,
-    },
-  ];
+  const whatsappNumber = '19852913802';
+  const orderLines = cart.map((item) => {
+    const variantLabel = item.variant
+      ? (item.variant.label || (item.variant.grams ? `${item.variant.grams}g` : item.variant.quantity ? `${item.variant.quantity}g` : ''))
+      : '';
+    return `• ${item.quantity}× ${item.name}${variantLabel ? ` (${variantLabel})` : ''} — €${(item.price * item.quantity).toFixed(2)}`;
+  }).join('\n');
+  const whatsappMessage = [
+    '*NEW ORDER — NovaChem*',
+    'novachemsite.com',
+    '',
+    '*Customer Details*',
+    `Name: ${buyerInfo.name}`,
+    `Email: ${buyerInfo.email}`,
+    `Phone: ${buyerInfo.phone || '-'}`,
+    `Address: ${buyerInfo.address}`,
+    `City: ${buyerInfo.city}`,
+    `Postal Code: ${buyerInfo.postalCode || '-'}`,
+    `Country: ${buyerInfo.country}`,
+    '',
+    '*Order Items*',
+    orderLines,
+    '',
+    `Subtotal: €${orderDetails.subtotal.toFixed(2)}`,
+    `Shipping: €${orderDetails.shipping.toFixed(2)}`,
+    `Tax: €${orderDetails.tax.toFixed(2)}`,
+    `*Total: €${orderDetails.total.toFixed(2)}*`,
+    '',
+    'Payment method: Bitcoin (BTC)',
+  ].join('\n');
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+  const handlePlaceOrder = (e) => {
+    e.preventDefault();
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const inputClass = 'bg-gray-800/60 border border-gray-700 text-white rounded-xl py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-gray-600 text-sm';
+  const labelClass = 'block text-xs font-medium text-gray-400 mb-1.5';
 
   return (
     <div className="min-h-screen bg-gray-950 pt-24 pb-20">
@@ -122,27 +138,62 @@ export default function CheckoutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Steps */}
           <div className="lg:col-span-2 space-y-4">
-            {/* Notice banner */}
-            <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-5 flex gap-3">
-              <span className="text-amber-400 text-lg flex-shrink-0">⚠️</span>
-              <div>
-                <p className="text-amber-300 font-semibold text-sm mb-1">Manual payment required</p>
-                <p className="text-gray-400 text-sm">We accept bank transfer, Bitcoin, Ethereum, and other secure methods. Follow the steps below to finalise your order.</p>
-              </div>
-            </div>
+            {/* Buyer details + WhatsApp order */}
+            <form onSubmit={handlePlaceOrder} className="bg-gray-900/60 border border-gray-700/50 rounded-2xl p-6">
+              <h3 className="text-white font-semibold text-sm mb-1">Your Details</h3>
+              <p className="text-gray-500 text-xs mb-5">Fill in your information — it will be included in the WhatsApp order message.</p>
 
-            {/* Step cards */}
-            {steps.map(({ n, title, body }) => (
-              <div key={n} className="bg-gray-900/60 border border-gray-700/50 rounded-2xl p-5 flex gap-4">
-                <div className="w-9 h-9 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center flex-shrink-0 text-teal-400 font-bold text-sm">
-                  {n}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div>
+                  <label className={labelClass}>Full Name</label>
+                  <input name="name" type="text" required value={buyerInfo.name} onChange={handleBuyerChange}
+                    placeholder="John Doe" className={inputClass} />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-sm mb-2">{title}</h3>
-                  {body}
+                  <label className={labelClass}>Email Address</label>
+                  <input name="email" type="email" required value={buyerInfo.email} onChange={handleBuyerChange}
+                    placeholder="john@example.com" className={inputClass} />
+                </div>
+                <div>
+                  <label className={labelClass}>Phone Number</label>
+                  <input name="phone" type="tel" value={buyerInfo.phone} onChange={handleBuyerChange}
+                    placeholder="+1 234 567 8900" className={inputClass} />
+                </div>
+                <div>
+                  <label className={labelClass}>Country</label>
+                  <input name="country" type="text" required value={buyerInfo.country} onChange={handleBuyerChange}
+                    placeholder="United States" className={inputClass} />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className={labelClass}>Street Address</label>
+                  <input name="address" type="text" required value={buyerInfo.address} onChange={handleBuyerChange}
+                    placeholder="123 Main Street" className={inputClass} />
+                </div>
+                <div>
+                  <label className={labelClass}>City</label>
+                  <input name="city" type="text" required value={buyerInfo.city} onChange={handleBuyerChange}
+                    placeholder="New York" className={inputClass} />
+                </div>
+                <div>
+                  <label className={labelClass}>Postal Code</label>
+                  <input name="postalCode" type="text" value={buyerInfo.postalCode} onChange={handleBuyerChange}
+                    placeholder="10001" className={inputClass} />
                 </div>
               </div>
-            ))}
+
+              <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-5 text-center">
+                <FaWhatsapp className="text-green-400 text-2xl mx-auto mb-2" />
+                <p className="text-gray-400 text-xs mb-4">Your order details will be sent to us automatically on WhatsApp.</p>
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-semibold py-3 px-8 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-green-900/30 w-full sm:w-auto"
+                >
+                  <FaWhatsapp className="text-lg" />
+                  Place Order on WhatsApp — €{orderDetails.total.toFixed(2)}
+                </button>
+                <p className="text-gray-600 text-xs mt-3">Payment method: Bitcoin (BTC) only</p>
+              </div>
+            </form>
           </div>
 
           {/* Sidebar */}
@@ -152,12 +203,12 @@ export default function CheckoutPage() {
             <div className="bg-gray-900/60 border border-gray-700/50 rounded-2xl p-5">
               <h3 className="text-sm font-semibold text-white mb-3">Need help?</h3>
               <p className="text-gray-500 text-xs mb-4 leading-relaxed">
-                Questions about your order? Our team is here to assist.
+                Questions about your order or Bitcoin payment? Message us on WhatsApp.
               </p>
-              <Link href="/contact"
-                className="inline-flex items-center gap-1.5 text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors">
-                Contact Support →
-              </Link>
+              <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-green-400 hover:text-green-300 text-sm font-medium transition-colors">
+                <FaWhatsapp /> Chat on WhatsApp
+              </a>
             </div>
           </div>
         </div>
